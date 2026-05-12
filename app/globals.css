@@ -1,26 +1,213 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Pretendard Variable is loaded via <link rel="stylesheet"> in app/layout.tsx
+   so it doesn't conflict with Tailwind's @import expansion order. */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/*
+ * Light theme (default). Dark mode below via prefers-color-scheme.
+ * Variable names mirror lib/design/tokens.ts semanticColors.
+ */
+:root {
+  /* surfaces */
+  --bg-app: #fbfaf7;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #f4f2ec;
+  --bg-surface-muted: #e9e6dd;
+  --bg-inverse: #0f0f0d;
+
+  /* text */
+  --text-primary: #0f0f0d;
+  --text-secondary: #4d4b45;
+  --text-tertiary: #8e8a7f;
+  --text-on-accent: #ffffff;
+  --text-on-inverse: #fbfaf7;
+  --text-link: #c73e3a;
+
+  /* borders */
+  --border-subtle: #e9e6dd;
+  --border-default: #dedad0;
+  --border-strong: #bfbaae;
+  --border-focus: #ff6f62;
+
+  /* accent (coral) */
+  --accent-bg: #ff6f62;
+  --accent-bg-hover: #ee5750;
+  --accent-bg-pressed: #c73e3a;
+  --accent-bg-soft: #fff4f2;
+  --accent-bg-soft-hover: #ffe6e1;
+  --accent-text: #c73e3a;
+
+  /* status */
+  --success-bg: #1fb99f;
+  --success-bg-soft: #e8f8f4;
+  --success-text: #0e8270;
+  --warning-bg: #f59e0b;
+  --warning-bg-soft: #fff6e0;
+  --warning-text: #b45309;
+  --danger-bg: #e5494c;
+  --danger-bg-soft: #ffebe9;
+  --danger-text: #a82a2d;
+  --info-bg: #6e60f5;
+  --info-bg-soft: #f4f1ff;
+  --info-text: #6e60f5;
+
+  /* radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* shadows */
+  --shadow-xs: 0 1px 1px rgba(20, 18, 12, 0.04);
+  --shadow-sm: 0 1px 2px rgba(20, 18, 12, 0.06);
+  --shadow-md: 0 1px 2px rgba(20, 18, 12, 0.04), 0 4px 12px rgba(20, 18, 12, 0.06);
+  --shadow-lg: 0 2px 4px rgba(20, 18, 12, 0.04), 0 12px 28px rgba(20, 18, 12, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(255, 111, 98, 0.2);
+
+  /* motion */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --easing-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-app: #0f0f0d;
+    --bg-surface: #1f1e1b;
+    --bg-surface-subtle: #33322e;
+    --bg-surface-muted: #4d4b45;
+    --bg-inverse: #ffffff;
+
+    --text-primary: #fbfaf7;
+    --text-secondary: #bfbaae;
+    --text-tertiary: #8e8a7f;
+    --text-on-accent: #ffffff;
+    --text-on-inverse: #0f0f0d;
+    --text-link: #ffa095;
+
+    --border-subtle: #33322e;
+    --border-default: #4d4b45;
+    --border-strong: #6b6960;
+    --border-focus: #ff8579;
+
+    --accent-bg: #ff6f62;
+    --accent-bg-hover: #ff8579;
+    --accent-bg-pressed: #ffa095;
+    --accent-bg-soft: rgba(255, 111, 98, 0.12);
+    --accent-bg-soft-hover: rgba(255, 111, 98, 0.2);
+    --accent-text: #ffa095;
+
+    --success-bg: #1fb99f;
+    --success-bg-soft: rgba(31, 185, 159, 0.14);
+    --success-text: #1fb99f;
+    --warning-bg: #f59e0b;
+    --warning-bg-soft: rgba(245, 158, 11, 0.14);
+    --warning-text: #f59e0b;
+    --danger-bg: #e5494c;
+    --danger-bg-soft: rgba(229, 73, 76, 0.14);
+    --danger-text: #e5494c;
+    --info-bg: #897cff;
+    --info-bg-soft: rgba(110, 96, 245, 0.14);
+    --info-text: #a99bff;
+
+    --shadow-xs: 0 1px 1px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.2), 0 12px 28px rgba(0, 0, 0, 0.5);
   }
 }
 
+/*
+ * Tailwind 4 @theme — expose tokens as utility classes:
+ *   bg-app, bg-surface, bg-accent, bg-accent-soft, text-accent,
+ *   border-default, border-focus, rounded-lg, shadow-md, font-sans, …
+ */
+@theme {
+  --color-app: var(--bg-app);
+  --color-surface: var(--bg-surface);
+  --color-surface-subtle: var(--bg-surface-subtle);
+  --color-surface-muted: var(--bg-surface-muted);
+  --color-inverse: var(--bg-inverse);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-on-accent: var(--text-on-accent);
+  --color-text-on-inverse: var(--text-on-inverse);
+  --color-text-link: var(--text-link);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-focus: var(--border-focus);
+
+  --color-accent: var(--accent-bg);
+  --color-accent-hover: var(--accent-bg-hover);
+  --color-accent-pressed: var(--accent-bg-pressed);
+  --color-accent-soft: var(--accent-bg-soft);
+  --color-accent-soft-hover: var(--accent-bg-soft-hover);
+  --color-accent-text: var(--accent-text);
+
+  --color-success: var(--success-bg);
+  --color-success-soft: var(--success-bg-soft);
+  --color-success-text: var(--success-text);
+  --color-warning: var(--warning-bg);
+  --color-warning-soft: var(--warning-bg-soft);
+  --color-warning-text: var(--warning-text);
+  --color-danger: var(--danger-bg);
+  --color-danger-soft: var(--danger-bg-soft);
+  --color-danger-text: var(--danger-text);
+  --color-info: var(--info-bg);
+  --color-info-soft: var(--info-bg-soft);
+  --color-info-text: var(--info-text);
+
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-focus: var(--shadow-focus);
+
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR",
+    sans-serif;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss10" on, "tnum" on; /* Pretendard alt + tabular */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Korean text wants slightly extra line-height; lock body baseline. */
+body {
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+
+/* Smoother focus rings — coral glow. */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-color: var(--border-focus) !important;
+}
+
+/* Number-heavy fields snap to tabular figures. */
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
