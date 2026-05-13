@@ -83,6 +83,7 @@ export interface MeUser {
   status: string;
   last_login_at: string | null;
   created_at: string;
+  referral_code: string | null;
 }
 
 export interface TokenPair {
@@ -182,6 +183,7 @@ export interface RoomBriefForApplication {
   venue_name: string | null;
   price_amount: number;
   deposit_amount: number;
+  payment_instructions: string | null;
 }
 
 export interface ApplicationResponse {
@@ -490,6 +492,7 @@ export interface AdminPaymentItem {
 export interface HostRoomItem extends PlannerRoomItem {
   viable_at: string | null;
   planner_id: string | null;
+  payment_instructions?: string | null;
 }
 
 export interface HostRoomDetail extends HostRoomItem {
@@ -515,6 +518,39 @@ export interface AdminQueueItem {
   planner_id: string | null;
   planner_name: string | null;
   status: RoomStatus;
+}
+
+// ---- Credits / Referral ----
+
+export type CreditKind = "fixed_amount" | "percent";
+export type CreditStatus = "active" | "used" | "expired" | "voided";
+export type CreditSource =
+  | "viable_host_bonus"
+  | "referral_host"
+  | "referral_friend"
+  | "manual_grant";
+
+export interface CreditItem {
+  id: string;
+  kind: CreditKind;
+  amount_krw: number | null;
+  percent_off: number | null;
+  max_discount_krw: number | null;
+  status: CreditStatus;
+  source: CreditSource;
+  expires_at: string;
+  used_at: string | null;
+  description: string | null;
+  created_at: string;
+}
+
+export interface CreditWallet {
+  active_count: number;
+  expired_count: number;
+  used_count: number;
+  total_active_fixed_krw: number;
+  has_percent_off: boolean;
+  items: CreditItem[];
 }
 
 export interface AdminReportItem {

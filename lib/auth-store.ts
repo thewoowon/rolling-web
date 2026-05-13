@@ -14,7 +14,8 @@ interface AuthState {
   register: (
     email: string,
     password: string,
-    role?: "participant" | "planner"
+    role?: "participant" | "planner",
+    referralCode?: string | null
   ) => Promise<MeUser>;
   logout: () => Promise<void>;
 }
@@ -57,10 +58,15 @@ export const useAuth = create<AuthState>((set) => ({
     }
   },
 
-  register: async (email, password, role = "participant") => {
+  register: async (email, password, role = "participant", referralCode = null) => {
     set({ loading: true });
     try {
-      await apiPost<MeUser>("/auth/register", { email, password, role });
+      await apiPost<MeUser>("/auth/register", {
+        email,
+        password,
+        role,
+        ...(referralCode ? { referral_code: referralCode.toUpperCase() } : {}),
+      });
       const tokens = await apiPost<TokenPair>("/auth/login", {
         email,
         password,

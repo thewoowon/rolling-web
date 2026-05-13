@@ -18,18 +18,19 @@ import { useSubmitFeedback } from "@/lib/queries";
 
 const schema = z.object({
  rating: z.coerce.number().int().min(1).max(5),
- safety_rating: z.coerce.number().int().min(1).max(5).optional().or(z.literal(0)),
- planner_rating: z.coerce.number().int().min(1).max(5).optional().or(z.literal(0)),
+ safety_rating: z.coerce.number().int().min(1).max(5),
+ planner_rating: z.coerce.number().int().min(1).max(5),
  would_join_again: z.enum(["yes", "no", "unsure"]),
  comment: z.string().max(4000).optional().or(z.literal("")),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormInput = z.input<typeof schema>;
+type FormValues = z.output<typeof schema>;
 
 function FeedbackInner({ roomId }: { roomId: string }) {
  const router = useRouter();
  const submit = useSubmitFeedback();
- const { register, handleSubmit, formState } = useForm<FormValues>({
+ const { register, handleSubmit, formState } = useForm<FormInput, unknown, FormValues>({
  resolver: zodResolver(schema),
  defaultValues: {
  rating: 5,

@@ -18,8 +18,8 @@ import { useMyProfile, useUpsertProfile } from "@/lib/queries";
 const schema = z.object({
  display_name: z.string().min(1, "닉네임을 입력해주세요").max(80),
  gender: z.enum(["male", "female", "other"]),
- birth_year: z
- .number({ invalid_type_error: "출생연도를 입력해주세요" })
+ birth_year: z.coerce
+ .number({ error: "출생연도를 입력해주세요" })
  .int()
  .min(1900)
  .max(new Date().getFullYear() - 18),
@@ -28,13 +28,14 @@ const schema = z.object({
  intro: z.string().max(2000).optional().or(z.literal("")),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormInput = z.input<typeof schema>;
+type FormValues = z.output<typeof schema>;
 
 function OnboardingForm() {
  const router = useRouter();
  const { data: profile } = useMyProfile();
  const upsert = useUpsertProfile();
- const { register, handleSubmit, reset, formState } = useForm<FormValues>({
+ const { register, handleSubmit, reset, formState } = useForm<FormInput, unknown, FormValues>({
  resolver: zodResolver(schema),
  defaultValues: {
  display_name: "",

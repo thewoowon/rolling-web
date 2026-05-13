@@ -24,6 +24,7 @@ import type {
   ChoiceSubmissionResult,
   ChoiceTarget,
   FeedbackCreate,
+  CreditWallet,
   FeedbackResponse,
   HostRoomDetail,
   HostRoomItem,
@@ -67,6 +68,7 @@ export const queryKeys = {
     ["planner", "room", id, "rotation"] as const,
   myCheckin: (roomId: string) => ["event", roomId, "checkin"] as const,
   myCurrentRound: (roomId: string) => ["event", roomId, "current-round"] as const,
+  myCredits: () => ["me", "credits"] as const,
   choiceTargets: (roomId: string) => ["event", roomId, "choice-targets"] as const,
   myMatches: (roomId: string) => ["event", roomId, "my-matches"] as const,
   adminDashboard: () => ["admin", "dashboard"] as const,
@@ -142,6 +144,14 @@ export function useMyRooms(enabled = true) {
   return useQuery({
     queryKey: queryKeys.myRooms(),
     queryFn: () => apiGet<RoomListItem[]>("/me/rooms"),
+    enabled,
+  });
+}
+
+export function useMyCredits(enabled = true) {
+  return useQuery({
+    queryKey: queryKeys.myCredits(),
+    queryFn: () => apiGet<CreditWallet>("/me/credits"),
     enabled,
   });
 }

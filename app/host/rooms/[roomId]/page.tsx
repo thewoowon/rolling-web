@@ -1,13 +1,23 @@
 "use client";
 
-import { use } from "react";
+import { use, useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { CalendarDays, Coins, MapPin, PartyPopper, Users } from "lucide-react";
+import {
+  CalendarDays,
+  Coins,
+  Copy,
+  MapPin,
+  PartyPopper,
+  Share2,
+  Users,
+  Wallet,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { AuthGuard } from "@/components/auth-guard";
+import { ShareRoomModal } from "@/components/share-room-modal";
 import {
   ApplicationStatusBadge,
   RoomStatusBadge,
@@ -17,6 +27,7 @@ import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { EmptyState } from "@/components/ui/empty";
 import { extractApiError } from "@/lib/api";
+import { useAuth } from "@/lib/auth-store";
 import {
   queryKeys,
   useHostApproveApplication,
@@ -30,17 +41,31 @@ import { ageFromBirthYear, formatDate, formatPrice } from "@/lib/utils";
 
 function HostRoomInner({ roomId }: { roomId: string }) {
   const qc = useQueryClient();
+  const { user } = useAuth();
   const { data: room, isLoading, isError } = useHostRoom(roomId);
   const { data: apps } = useHostRoomApplications(roomId);
   const publish = usePublishHostRoom();
   const approve = useHostApproveApplication();
   const reject = useHostRejectApplication();
   const markPaid = useHostMarkPaid();
+  const [shareOpen, setShareOpen] = useState(false);
 
   function refresh() {
     qc.invalidateQueries({ queryKey: queryKeys.hostRoom(roomId) });
     qc.invalidateQueries({ queryKey: queryKeys.hostRoomApplications(roomId) });
     qc.invalidateQueries({ queryKey: queryKeys.hostRooms() });
+  }
+
+  async function copyInviteLink() {
+    if (typeof window === "undefined" || !room) return;
+    const refCode = user?.referral_code;
+    const url = `${window.location.origin}/rooms/${room.id}${refCode ? `?ref=${refCode}` : ""}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("초대 링크 복사됨. 단톡에 붙여넣어보세요.");
+    } catch {
+      toast.error("복사에 실패했어요.");
+    }
   }
 
   if (isLoading)
@@ -114,6 +139,30 @@ function HostRoomInner({ roomId }: { roomId: string }) {
           value={`남 ${room.male_capacity} · 여 ${room.female_capacity}`}
         />
       </div>
+
+      {/* Invite — once published */}
+      {room.status !== "draft" && !["completed", "cancelled"].includes(room.status) ? (
+        <Card className="mt-5" tone="soft">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <CardTitle className="text-base">친구 다시 부르기</CardTitle>
+              <CardDescription className="mt-1">
+                내 추천 코드가 포함된 링크를 보내면, 친구는 첫 방 3,000원 할인 + 나는 추천 보상 3,000원.
+              </CardDescription>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={copyInviteLink}>
+                <Copy className="h-3.5 w-3.5" strokeWidth={2} />
+                링크 복사
+              </Button>
+              <Button onClick={() => setShareOpen(true)}>
+                <Share2 className="h-3.5 w-3.5" strokeWidth={2} />
+                공유
+              </Button>
+            </div>
+          </div>
+        </Card>
+      ) : null}
 
       {/* Primary CTA — depends on state */}
       {room.status === "draft" ? (
@@ -272,6 +321,36 @@ function HostRoomInner({ roomId }: { roomId: string }) {
           )}
         </div>
       </Card>
+
+      {/* Payment instructions — read-only confirmation for the host */}
+      {room.payment_instructions ? (
+        <Card className="mt-4">
+          <CardTitle className="text-base">
+            <span className="inline-flex items-center gap-1.5">
+              <Wallet className="h-4 w-4 text-(--accent-bg)" strokeWidth={2} />
+              참가자에게 보일 결제 안내
+            </span>
+          </CardTitle>
+          <CardDescription className="mt-1">
+            승인된 신청자가 “내 신청” 페이지에서 이 메시지를 보게 돼요.
+          </CardDescription>
+          <p className="mt-3 whitespace-pre-line rounded-md bg-(--bg-surface-subtle) px-3.5 py-3 text-[13px] leading-relaxed text-(--text-primary)">
+            {room.payment_instructions}
+          </p>
+        </Card>
+      ) : null}
+
+      <ShareRoomModal
+        open={shareOpen}
+        onClose={() => setShareOpen(false)}
+        roomTitle={room.title}
+        roomUrl={
+          typeof window !== "undefined"
+            ? `${window.location.origin}/rooms/${room.id}`
+            : `/rooms/${room.id}`
+        }
+        referralCode={user?.referral_code ?? null}
+      />
     </div>
   );
 }

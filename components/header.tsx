@@ -47,6 +47,12 @@ export function Header() {
               >
                 내 신청
               </Link>
+              <Link
+                href="/me/credits"
+                className={navLink("hidden sm:inline-flex")}
+              >
+                지갑
+              </Link>
               {user.role === "planner" && (
                 <Link href="/planner" className={navLink()}>
                   플래너
