@@ -15,17 +15,18 @@
  */
 
 export const palette = {
-  // Brand — warm coral (warm, inviting, but not Tinder-red).
+  // Brand signature — vermillion (warmer than red, more punchy than coral).
+  // Base #FE3D01 is fixed; surrounding tints derived in HSL space (hue 15°).
   coral: {
-    50: "#FFF4F2",
-    100: "#FFE6E1",
-    200: "#FFC6BD",
-    300: "#FFA095",
-    400: "#FF8579",
-    500: "#FF6F62", // base
-    600: "#EE5750",
-    700: "#C73E3A",
-    800: "#9A2E2C",
+    50: "#FFEFE5",
+    100: "#FFD5BD",
+    200: "#FFAB85",
+    300: "#FF8552",
+    400: "#FF6633",
+    500: "#FE3D01", // base — signature
+    600: "#D63300",
+    700: "#A32500",
+    800: "#701900",
   },
   // Secondary accent — soft lavender for info / quiet states.
   lavender: {
