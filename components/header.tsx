@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-store";
 import { cn } from "@/lib/utils";
+import { Logo } from "./svg";
 
 function navLink(extra = "") {
   // min-h-10 → ≥40px tap target on mobile.
@@ -22,16 +23,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-(--border-subtle) bg-(--bg-surface)/80 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 px-4 sm:h-16 sm:px-6">
-        <Link
-          href="/"
-          className="inline-flex min-h-10 items-center gap-2 text-base font-bold tracking-tight"
-        >
-          <span
-            aria-hidden
-            className="inline-block h-6 w-6 rounded-full bg-(--accent-bg) shadow-sm"
-          />
-          Rolling
-        </Link>
+        <Logo />
         <nav className="flex items-center gap-1 text-[13px] sm:gap-3 sm:text-sm">
           <Link href="/rooms" className={navLink()}>
             롤링방

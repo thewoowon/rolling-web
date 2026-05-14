@@ -21,21 +21,21 @@
   --text-tertiary: #8e8a7f;
   --text-on-accent: #ffffff;
   --text-on-inverse: #fbfaf7;
-  --text-link: #c73e3a;
+  --text-link: #a32500;
 
   /* borders */
   --border-subtle: #e9e6dd;
   --border-default: #dedad0;
   --border-strong: #bfbaae;
-  --border-focus: #ff6f62;
+  --border-focus: #fe3d01;
 
-  /* accent (coral) */
-  --accent-bg: #ff6f62;
-  --accent-bg-hover: #ee5750;
-  --accent-bg-pressed: #c73e3a;
-  --accent-bg-soft: #fff4f2;
-  --accent-bg-soft-hover: #ffe6e1;
-  --accent-text: #c73e3a;
+  /* accent — vermillion signature (#FE3D01) */
+  --accent-bg: #fe3d01;
+  --accent-bg-hover: #d63300;
+  --accent-bg-pressed: #a32500;
+  --accent-bg-soft: #ffefe5;
+  --accent-bg-soft-hover: #ffd5bd;
+  --accent-text: #a32500;
 
   /* status */
   --success-bg: #1fb99f;
@@ -64,7 +64,7 @@
   --shadow-sm: 0 1px 2px rgba(20, 18, 12, 0.06);
   --shadow-md: 0 1px 2px rgba(20, 18, 12, 0.04), 0 4px 12px rgba(20, 18, 12, 0.06);
   --shadow-lg: 0 2px 4px rgba(20, 18, 12, 0.04), 0 12px 28px rgba(20, 18, 12, 0.08);
-  --shadow-focus: 0 0 0 3px rgba(255, 111, 98, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(254, 61, 1, 0.22);
 
   /* motion */
   --duration-fast: 150ms;
@@ -88,19 +88,19 @@
     --text-tertiary: #8e8a7f;
     --text-on-accent: #ffffff;
     --text-on-inverse: #0f0f0d;
-    --text-link: #ffa095;
+    --text-link: #ff8552;
 
     --border-subtle: #33322e;
     --border-default: #4d4b45;
     --border-strong: #6b6960;
-    --border-focus: #ff8579;
+    --border-focus: #ff6633;
 
-    --accent-bg: #ff6f62;
-    --accent-bg-hover: #ff8579;
-    --accent-bg-pressed: #ffa095;
-    --accent-bg-soft: rgba(255, 111, 98, 0.12);
-    --accent-bg-soft-hover: rgba(255, 111, 98, 0.2);
-    --accent-text: #ffa095;
+    --accent-bg: #fe3d01;
+    --accent-bg-hover: #ff6633;
+    --accent-bg-pressed: #ff8552;
+    --accent-bg-soft: rgba(254, 61, 1, 0.16);
+    --accent-bg-soft-hover: rgba(254, 61, 1, 0.26);
+    --accent-text: #ff8552;
 
     --success-bg: #1fb99f;
     --success-bg-soft: rgba(31, 185, 159, 0.14);
