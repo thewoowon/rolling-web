@@ -111,10 +111,16 @@ export function RoomCard({
         {/* footer */}
         <div className="mt-5 flex items-center justify-between border-t border-(--border-subtle) pt-3.5">
           <span className="flex items-center gap-1.5 text-[11px] text-(--text-tertiary)">
-            <span className="grid h-5 w-5 place-items-center rounded-full bg-(--bg-surface-subtle) text-[10px] font-semibold text-(--text-secondary)">
-              {room.planner.name.slice(0, 1)}
-            </span>
-            {room.planner.name}
+            {room.planner ? (
+              <>
+                <span className="grid h-5 w-5 place-items-center rounded-full bg-(--bg-surface-subtle) text-[10px] font-semibold text-(--text-secondary)">
+                  {room.planner.name.slice(0, 1)}
+                </span>
+                {room.planner.name}
+              </>
+            ) : (
+              <span>플래너 배정 중</span>
+            )}
           </span>
           <span className="font-semibold tabular text-(--text-primary)">
             {formatPrice(room.price_amount, room.currency)}

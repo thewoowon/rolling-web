@@ -108,7 +108,7 @@ export default function RoomDetailPage({
           <div className="flex flex-wrap items-center gap-2">
             <RoomStatusBadge status={data.status} />
             <span className="text-[12px] text-(--text-tertiary)">
-              · {data.planner.name}
+              {data.planner ? `· ${data.planner.name}` : "· 플래너 배정 중"}
             </span>
           </div>
           <h1 className="mt-3 text-[28px] font-bold leading-[1.25] tracking-tight text-(--text-primary) sm:text-[34px]">
