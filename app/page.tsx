@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { LogoIcon } from "@/components/svg";
+import LogoIcon from "@/components/svg/LogoIcon";
 import { FadeIn } from "@/components/ui/fade-in";
 
 export default function HomePage() {
