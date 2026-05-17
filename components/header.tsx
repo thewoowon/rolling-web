@@ -26,7 +26,7 @@ export function Header() {
         <Logo />
         <nav className="flex items-center gap-1 text-[13px] sm:gap-3 sm:text-sm">
           <Link href="/rooms" className={navLink()}>
-            롤링방
+            룸
           </Link>
           {user ? (
             <>
@@ -56,7 +56,7 @@ export function Header() {
                 </Link>
               )}
               <Link href="/host/rooms/new" className="hidden sm:inline-flex">
-                <Button variant="soft">+ 방 만들기</Button>
+                <Button variant="soft">+ 룸 열기</Button>
               </Link>
               <Button
                 variant="ghost"

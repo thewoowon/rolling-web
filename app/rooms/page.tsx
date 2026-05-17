@@ -36,15 +36,15 @@ export default function RoomsPage() {
       <header className="mb-7 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-[28px] font-bold tracking-tight text-(--text-primary) sm:text-3xl">
-            이번 주 롤링방
+            이번 주 롤링룸
             <Sparkles className="h-5 w-5 text-(--accent-bg)" strokeWidth={2} />
           </h1>
           <p className="mt-1.5 text-sm text-(--text-secondary)">
-            방장이 띄운 모임 중 모집 중인 방들이에요.
+            호스트가 연 소개팅 룸 중 지금 모집 중인 것들이에요.
           </p>
         </div>
         <Link href="/host/rooms/new" className="hidden sm:inline-flex">
-          <Button variant="soft">+ 내가 방 만들기</Button>
+          <Button variant="soft">+ 룸 열기</Button>
         </Link>
       </header>
 
@@ -85,29 +85,29 @@ export default function RoomsPage() {
         </div>
       ) : isError ? (
         <EmptyState
-          title="롤링방을 불러오지 못했어요"
+          title="룸을 불러오지 못했어요"
           description={(error as Error)?.message ?? "잠시 후 다시 시도해주세요."}
         />
       ) : !data?.items.length ? (
         <EmptyState
           icon={<Sparkles className="h-5 w-5" strokeWidth={2} />}
-          title="조건에 맞는 방이 아직 없어요"
+          title="조건에 맞는 룸이 아직 없어요"
           description={
             <>
-              지금 만들면 첫 번째 방장이 될 수 있어요.
+              지금 열면 첫 번째 호스트가 될 수 있어요.
               <br />
               친구·지인 모집부터 천천히 시작해보세요.
             </>
           }
           action={
             <Link href="/host/rooms/new">
-              <Button>+ 방 만들기</Button>
+              <Button>+ 룸 열기</Button>
             </Link>
           }
         />
       ) : (
         <>
-          <p className="mb-3 text-[12px] text-(--text-tertiary)">{data.total}개 방</p>
+          <p className="mb-3 text-[12px] text-(--text-tertiary)">{data.total}개 룸</p>
           <div className="grid gap-4 sm:grid-cols-2">
             {data.items.map((r) => (
               <RoomCard key={r.id} room={r} />
@@ -120,7 +120,7 @@ export default function RoomsPage() {
       <div className="fixed inset-x-0 bottom-0 z-20 border-t border-(--border-subtle) bg-(--bg-surface)/90 px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur sm:hidden">
         <Link href="/host/rooms/new" className="block">
           <Button size="lg" className="w-full">
-            + 내가 방 만들기
+            + 룸 열기
           </Button>
         </Link>
       </div>

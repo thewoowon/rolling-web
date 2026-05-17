@@ -55,7 +55,7 @@ export default function AdminQueuePage() {
         <div>
           <CardTitle className="text-xl">배정 큐</CardTitle>
           <CardDescription className="mt-1">
-            방장이 띄워서 성립된 방을 가용한 플래너에게 넘겨주세요.
+            호스트가 열어서 성립된 룸을 플래너에게 배정하세요.
           </CardDescription>
         </div>
         <label className="inline-flex items-center gap-2 rounded-pill border border-(--border-subtle) bg-(--bg-surface) px-3 py-1.5 text-sm text-(--text-secondary)">
@@ -75,7 +75,7 @@ export default function AdminQueuePage() {
         <EmptyState
           icon={<Inbox className="h-5 w-5" strokeWidth={2} />}
           title="큐가 비어 있어요"
-          description="방장이 띄운 방의 성립 인원이 차면 자동으로 여기에 표시됩니다."
+          description="호스트가 연 룸의 성립 인원이 차면 자동으로 여기에 표시됩니다."
         />
       ) : (
         <div className="space-y-3">

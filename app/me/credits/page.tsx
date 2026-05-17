@@ -140,7 +140,7 @@ function CreditsInner() {
           action={
             <div className="flex gap-2">
               <Link href="/host/rooms/new">
-                <Button>방 만들기</Button>
+                <Button>룸 열기</Button>
               </Link>
             </div>
           }

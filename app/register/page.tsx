@@ -80,7 +80,7 @@ function RegisterInner() {
       <div className="text-center">
         <CardTitle className="text-2xl">회원가입</CardTitle>
         <CardDescription className="mt-2">
-          롤링방에 참여하려면 먼저 가입해주세요.
+          룸에 참여하려면 먼저 가입해주세요.
         </CardDescription>
       </div>
       {refFromUrl ? (

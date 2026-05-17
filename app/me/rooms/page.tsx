@@ -23,7 +23,7 @@ function MyRoomsInner() {
  <div className="text-sm text-red-600">불러오지 못했습니다.</div>
  ) : !data?.length ? (
  <Card className="col-span-full text-center text-sm text-(--text-secondary)">
- 아직 참가 확정된 방이 없습니다.
+ 아직 참가 확정된 룸이 없습니다.
  </Card>
  ) : (
  data.map((r) => {

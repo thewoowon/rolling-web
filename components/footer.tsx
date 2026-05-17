@@ -17,7 +17,7 @@ export function Footer() {
         <div className="flex flex-col items-start gap-2">
           <Logo />
           <p className="mt-1 text-[12px] text-(--text-tertiary)">
-            누구나 방장이 되고, Rolling 플래너가 운영을 맡습니다.
+            누구나 호스트가 되고, Rolling 플래너가 운영을 맡습니다.
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">

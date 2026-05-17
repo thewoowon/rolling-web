@@ -74,7 +74,7 @@ function FeedbackInner({ roomId }: { roomId: string }) {
  <div className="mb-6">
  <CardTitle className="text-2xl">피드백</CardTitle>
  <CardDescription className="mt-2">
- 이번 롤링방은 어떠셨나요? 짧게 남겨주세요.
+ 이번 룸은 어떠셨나요? 짧게 남겨주세요.
  </CardDescription>
  </div>
  <Card>

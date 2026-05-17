@@ -14,7 +14,7 @@ export const buttonVariants = cva(
  variants: {
  variant: {
  primary:
- "bg-[var(--accent-bg)] text-[var(--text-on-accent)] shadow-[var(--shadow-sm)] hover:bg-[var(--accent-bg-hover)] active:bg-[var(--accent-bg-pressed)]",
+ "bg-[var(--accent-bg)] text-[var(--text-on-accent)] shadow-[var(--shadow-sm)] hover:bg-[var(--accent-bg-hover)] hover:shadow-[var(--shadow-md)] active:bg-[var(--accent-bg-pressed)] active:shadow-none",
  secondary:
  "bg-[var(--bg-inverse)] text-[var(--text-on-inverse)] hover:opacity-90",
  outline:

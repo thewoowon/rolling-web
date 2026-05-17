@@ -27,7 +27,7 @@ function MatchesView({ roomId }: { roomId: string }) {
  if (errMeta?.code === "ROOM_NOT_FOUND") {
  return (
  <div className="px-6 py-16 text-center text-sm text-red-600">
- 방을 찾을 수 없습니다.
+ 룸을 찾을 수 없습니다.
  </div>
  );
  }

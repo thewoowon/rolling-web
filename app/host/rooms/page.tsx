@@ -20,16 +20,16 @@ function HostRoomsInner() {
       <header className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-[26px] font-bold tracking-tight text-(--text-primary)">
-            내가 만든 방
+            내 룸
           </h1>
           <p className="mt-1.5 text-sm text-(--text-secondary)">
-            방장으로 띄운 모임을 한곳에서 관리해요.
+            호스트로 연 룸을 한곳에서 관리해요.
           </p>
         </div>
         <Link href="/host/rooms/new">
           <Button>
             <Plus className="h-4 w-4" strokeWidth={2.5} />
-            방 만들기
+            룸 열기
           </Button>
         </Link>
       </header>
@@ -41,17 +41,17 @@ function HostRoomsInner() {
       ) : !data?.length ? (
         <EmptyState
           icon={<Sparkles className="h-5 w-5" strokeWidth={2} />}
-          title="첫 방을 띄워볼까요?"
+          title="첫 룸을 열어볼까요?"
           description={
             <>
-              방장이 되면 친구·지인을 모집할 수 있고,
+              호스트가 되면 친구·지인을 직접 모집하고,
               <br />
               일정 인원이 모이면 Rolling 플래너가 운영을 맡아요.
             </>
           }
           action={
             <Link href="/host/rooms/new">
-              <Button>+ 방 만들기</Button>
+              <Button>+ 룸 열기</Button>
             </Link>
           }
         />

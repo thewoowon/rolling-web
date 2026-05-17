@@ -41,7 +41,7 @@ function MyApplicationsInner() {
           내 신청
         </h1>
         <p className="mt-1.5 text-sm text-(--text-secondary)">
-          지금까지 신청한 롤링방을 확인하고, 승인되면 결제 안내를 받아보세요.
+          지금까지 신청한 룸을 확인하고, 승인되면 결제 안내를 받아보세요.
         </p>
       </header>
 
@@ -52,11 +52,11 @@ function MyApplicationsInner() {
           <EmptyState title="신청 내역을 불러오지 못했어요" />
         ) : !data?.length ? (
           <EmptyState
-            title="아직 신청한 방이 없어요"
-            description="둘러보고 마음에 드는 방에 신청해보세요."
+            title="아직 신청한 룸이 없어요"
+            description="둘러보고 마음에 드는 룸에 신청해보세요."
             action={
               <Link href="/rooms">
-                <Button>방 둘러보기</Button>
+                <Button>룸 둘러보기</Button>
               </Link>
             }
           />
@@ -92,7 +92,7 @@ function MyApplicationsInner() {
                     </p>
                     {app.planner_note ? (
                       <p className="mt-2 rounded-md bg-(--bg-surface-subtle) p-3 text-sm text-(--text-secondary)">
-                        방장 메시지: {app.planner_note}
+                        호스트 메시지: {app.planner_note}
                       </p>
                     ) : null}
                   </div>
@@ -133,7 +133,7 @@ function MyApplicationsInner() {
                     </p>
                     {awaitingPayment ? (
                       <p className="mt-2 text-[11px] text-(--accent-text)">
-                        송금 후 방장이 확인하면 자동으로 참가 확정돼요.
+                        송금 후 호스트가 확인하면 자동으로 참가 확정돼요.
                       </p>
                     ) : null}
                   </div>

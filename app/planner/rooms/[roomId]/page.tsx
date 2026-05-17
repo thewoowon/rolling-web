@@ -43,7 +43,7 @@ export default function PlannerRoomDetailPage({
  }
 
  if (isLoading) return <div className="text-sm text-(--text-secondary)">불러오는 중…</div>;
- if (isError || !room) return <div className="text-sm text-red-600">방을 찾을 수 없습니다.</div>;
+ if (isError || !room) return <div className="text-sm text-red-600">룸을 찾을 수 없습니다.</div>;
 
  const cap = room.capacity_summary;
  const canOpenOps = room.status === "confirmed" || room.status === "in_progress";
@@ -100,7 +100,7 @@ export default function PlannerRoomDetailPage({
  <Card>
  <CardTitle className="text-base">호스트가 신청자 큐레이션 중</CardTitle>
  <CardDescription className="mt-1">
- 신청자 심사·결제 확정은 호스트(방장)가 합니다. 플래너는 체크인 시점부터 운영을 맡습니다.
+ 신청자 심사·결제 확정은 호스트가 합니다. 플래너는 체크인 시점부터 운영을 맡습니다.
  </CardDescription>
  </Card>
  </div>

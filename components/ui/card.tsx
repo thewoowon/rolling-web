@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 export const cardVariants = cva(
- "bg-[var(--bg-surface)] border border-[var(--border-subtle)] transition-shadow duration-200",
+ "bg-[var(--bg-surface)] border border-[var(--border-subtle)] transition-all duration-200 ease-out",
  {
  variants: {
  tone: {
@@ -18,7 +18,7 @@ export const cardVariants = cva(
  lg: "rounded-xl p-6",
  },
  hoverable: {
- true: "hover:border-[var(--border-default)] hover:shadow-[var(--shadow-sm)]",
+ true: "cursor-pointer hover:-translate-y-1 hover:border-[var(--border-default)] hover:shadow-[var(--shadow-md)]",
  false: "",
  },
  elevated: {

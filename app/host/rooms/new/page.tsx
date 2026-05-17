@@ -99,7 +99,7 @@ function HostRoomCreateForm() {
           : null,
         payment_instructions: values.payment_instructions || null,
       });
-      toast.success("방이 만들어졌어요. 친구들에게 공유해보세요!");
+      toast.success("룸이 열렸어요. 친구들에게 공유해보세요!");
       setCreated({ id: room.id, title: room.title });
       setShareOpen(true);
     } catch (err) {
@@ -115,7 +115,7 @@ function HostRoomCreateForm() {
   return (
     <div className="mx-auto w-full max-w-xl px-5 pt-10 pb-24 sm:px-6">
       <Card>
-        <CardTitle className="text-lg">방 만들기</CardTitle>
+        <CardTitle className="text-lg">룸 열기</CardTitle>
         <CardDescription className="mt-1">
           정원의 50% 이상이 결제 확정되면 자동으로 Rolling 큐에 들어가고, 우리
           플래너가 장소·진행을 맡아요.
@@ -235,7 +235,7 @@ function HostRoomCreateForm() {
               취소
             </Button>
             <Button type="submit" disabled={formState.isSubmitting}>
-              {formState.isSubmitting ? "저장 중…" : "방 만들기"}
+              {formState.isSubmitting ? "저장 중…" : "룸 열기"}
             </Button>
           </div>
         </form>

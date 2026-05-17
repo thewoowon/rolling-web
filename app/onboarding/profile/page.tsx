@@ -91,7 +91,7 @@ function OnboardingForm() {
  <div className="mb-6">
  <CardTitle className="text-2xl">프로필 작성</CardTitle>
  <CardDescription className="mt-2">
- 롤링방 신청을 위해 기본 프로필이 필요합니다.
+ 룸 신청을 위해 기본 프로필이 필요합니다.
  </CardDescription>
  </div>
  <Card>
@@ -134,7 +134,7 @@ function OnboardingForm() {
  <Textarea id="intro" {...register("intro")} placeholder="안녕하세요." />
  </div>
  <Button type="submit" className="w-full" disabled={formState.isSubmitting}>
- {formState.isSubmitting ? "저장 중…" : "저장하고 롤링방 보기"}
+ {formState.isSubmitting ? "저장 중…" : "저장하고 룸 보기"}
  </Button>
  </form>
  </Card>

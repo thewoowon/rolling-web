@@ -26,7 +26,7 @@ import { formatDate, formatPrice } from "@/lib/utils";
 
 const FRIENDLY_ERRORS: Record<string, string> = {
   PROFILE_INCOMPLETE: "먼저 프로필을 완성해주세요.",
-  APPLICATION_ALREADY_EXISTS: "이미 신청한 방이에요.",
+  APPLICATION_ALREADY_EXISTS: "이미 신청한 룸이에요.",
   ROOM_NOT_ACCEPTING_APPLICATIONS: "지금은 신청을 받지 않아요.",
   APPLICATION_DEADLINE_PASSED: "신청 기한이 지났어요.",
 };
@@ -53,7 +53,7 @@ export default function RoomDetailPage({
   if (isError || !data) {
     return (
       <div className="px-6 py-16 text-center text-sm text-(--danger-text)">
-        {(error as Error)?.message ?? "방을 찾을 수 없어요."}
+        {(error as Error)?.message ?? "룸을 찾을 수 없어요."}
       </div>
     );
   }
@@ -78,7 +78,7 @@ export default function RoomDetailPage({
     }
     try {
       await apply.mutateAsync({ roomId, message: message || null });
-      toast.success("신청 접수! 방장이 검토 후 안내드려요.");
+      toast.success("신청 접수! 호스트가 검토 후 안내드려요.");
       router.push("/me/applications");
     } catch (err) {
       const { code, message: msg } = extractApiError(err);
@@ -99,7 +99,7 @@ export default function RoomDetailPage({
       ? "로그인하고 신청하기"
       : apply.isPending
         ? "신청 중…"
-        : "이 방에 신청하기";
+        : "이 룸에 신청하기";
 
   return (
     <>
@@ -170,7 +170,7 @@ export default function RoomDetailPage({
 
         {data.description ? (
           <Card className="mt-4">
-            <CardTitle className="text-base">방 소개</CardTitle>
+            <CardTitle className="text-base">룸 소개</CardTitle>
             <p className="mt-3 whitespace-pre-line text-[14.5px] leading-[1.75] text-(--text-secondary)">
               {data.description}
             </p>
@@ -198,7 +198,7 @@ export default function RoomDetailPage({
                 className="mt-0.5 h-4 w-4 shrink-0 text-(--success-bg)"
                 strokeWidth={1.75}
               />
-              <span>방장 승인 후 결제 안내가 열립니다</span>
+              <span>호스트 승인 후 결제 안내가 열립니다</span>
             </li>
             <li className="flex items-start gap-2">
               <Clock
@@ -213,11 +213,11 @@ export default function RoomDetailPage({
         <Card className="mt-4 hidden sm:block">
           <CardTitle className="text-base">신청하기</CardTitle>
           <CardDescription className="mt-1">
-            방장이 신청자를 검토한 뒤 승인되면 결제 안내가 열려요.
+            호스트가 신청자를 검토한 뒤 승인되면 결제 안내가 열려요.
           </CardDescription>
           <div className="mt-4">
             <Textarea
-              placeholder="방장에게 전하고 싶은 말이 있다면 적어주세요 (선택)"
+              placeholder="호스트에게 전하고 싶은 말이 있다면 적어주세요 (선택)"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               disabled={!isOpen}
