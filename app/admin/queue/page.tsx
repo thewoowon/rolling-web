@@ -34,12 +34,17 @@ export default function AdminQueuePage() {
     qc.invalidateQueries({ queryKey: queryKeys.adminDashboard() });
   }
 
-  async function onAssign(roomId: string) {
+  async function onAssign(roomId: string, roomTitle: string, isReassign: boolean) {
     const pid = picks[roomId];
     if (!pid) {
       toast.error("플래너를 먼저 선택해주세요.");
       return;
     }
+    const plannerName = planners?.find((p) => p.id === pid)?.name ?? "선택한 플래너";
+    const confirmMsg = isReassign
+      ? `"${roomTitle}"을(를) ${plannerName}에게 재배정할까요? 기존 플래너 배정이 취소됩니다.`
+      : `"${roomTitle}"을(를) ${plannerName}에게 배정할까요?`;
+    if (!window.confirm(confirmMsg)) return;
     try {
       await assign.mutateAsync({ roomId, plannerId: pid });
       toast.success("배정 완료! 플래너에게 전달됐어요.");
@@ -147,7 +152,7 @@ export default function AdminQueuePage() {
                         </option>
                       ))}
                     </Select>
-                    <Button onClick={() => onAssign(r.id)} disabled={assign.isPending}>
+                    <Button onClick={() => onAssign(r.id, r.title, !!r.planner_id)} disabled={assign.isPending}>
                       {r.planner_id ? "재배정" : "배정"}
                     </Button>
                   </div>

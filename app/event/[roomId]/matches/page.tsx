@@ -20,6 +20,16 @@ import {
 import type { MatchSummary } from "@/lib/types";
 import { ageFromBirthYear } from "@/lib/utils";
 
+const MATCH_STATUS_LABEL: Record<string, string> = {
+ pending: "매치 대기 중",
+ mutual: "상호 매칭 ✓",
+ one_sided: "일방 관심",
+ none: "매칭 없음",
+ after_proposed: "애프터 제안 중",
+ after_confirmed: "애프터 확정 🎉",
+ closed: "종료",
+};
+
 function MatchesView({ roomId }: { roomId: string }) {
  const { data, isLoading, error } = useMyMatches(roomId);
  const errMeta = error ? extractApiError(error) : null;
@@ -111,8 +121,8 @@ function MatchRow({ match, roomId }: { match: MatchSummary; roomId: string }) {
  </p>
  ) : null}
  <p className="mt-2 text-xs text-(--text-secondary)">
- 상태: {match.status}
- {match.after_proposed ? "· 애프터 제안 진행 중" : ""}
+ {MATCH_STATUS_LABEL[match.status] ?? match.status}
+ {match.after_proposed ? " · 애프터 제안 진행 중" : ""}
  </p>
  </div>
  {!match.after_proposed ? (

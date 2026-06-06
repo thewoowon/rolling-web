@@ -81,7 +81,10 @@ function ChoicesView({ roomId }: { roomId: string }) {
  <div className="mb-6">
  <h1 className="text-2xl font-semibold tracking-tight">상호 선택</h1>
  <p className="mt-1 text-sm text-(--text-secondary)">
- 관심 있는 분에게 “관심 있음”을 남겨주세요. 양쪽 모두 “관심 있음”을 누른 경우에만 매치가 공개됩니다.
+ {'관심 있는 분에게 "관심 있음"을 남겨주세요. 양쪽 모두 "관심 있음"이어야 매치가 공개됩니다.'}
+ </p>
+ <p className="mt-1 text-xs text-(--text-tertiary)">
+ {'"보류"는 매치 대상에서 제외돼요. 저장 전까지 언제든 바꿀 수 있어요.'}
  </p>
  </div>
 

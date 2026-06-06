@@ -99,6 +99,18 @@ export default function PlannerRotationPage({
  <CardDescription className="mt-1">
  체크인이 끝난 후 라운드 시간을 정하고 시작하세요. 자동으로 라운드 로빈 자리 배정이 생성됩니다.
  </CardDescription>
+ {room ? (
+ <div className="mt-3 rounded-lg bg-(--bg-surface-subtle) px-3 py-2 text-xs text-(--text-secondary)">
+ {(() => {
+ const total = (room.capacity_summary?.male_confirmed ?? 0) + (room.capacity_summary?.female_confirmed ?? 0);
+ const tables = Math.min(room.capacity_summary?.male_confirmed ?? 0, room.capacity_summary?.female_confirmed ?? 0);
+ const rounds = tables > 0 ? Math.ceil(Math.max(room.capacity_summary?.male_confirmed ?? 0, room.capacity_summary?.female_confirmed ?? 0) / tables) * tables : 0;
+ return total > 0
+ ? `참가자 ${total}명 기준 약 ${rounds}라운드 진행됩니다 (테이블 ${tables}개)`
+ : "체크인 완료 후 라운드 수가 계산됩니다.";
+ })()}
+ </div>
+ ) : null}
  <div className="mt-4 flex items-end gap-3">
  <label className="block">
  <span className="text-xs font-medium uppercase tracking-wider text-(--text-secondary)">

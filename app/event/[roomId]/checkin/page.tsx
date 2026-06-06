@@ -46,7 +46,7 @@ function CheckinView({ roomId }: { roomId: string }) {
  {data.status === "checked_in" ? (
  <Link
  href={`/event/${roomId}/rotation`}
- className="mt-2 rounded-full bg-(--bg-surface) px-5 py-2 text-sm font-medium text-white hover:bg-(--bg-surface-subtle)">
+ className="mt-2 inline-flex items-center rounded-full bg-(--accent-bg) px-5 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90">
  라운드 보기 →
  </Link>
  ) : null}

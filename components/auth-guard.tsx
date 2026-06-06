@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import { toast } from "sonner";
+
 import { useAuth } from "@/lib/auth-store";
 import type { UserRole } from "@/lib/types";
 
@@ -25,6 +27,7 @@ export function AuthGuard({
  return;
  }
  if (roles && !roles.includes(user.role)) {
+ toast.error("접근 권한이 없습니다.");
  router.replace("/");
  }
  }, [hydrated, user, router, roles, redirectTo]);

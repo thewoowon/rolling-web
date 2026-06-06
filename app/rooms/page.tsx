@@ -1,16 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 
 import { RoomCard, RoomCardSkeleton } from "@/components/room-card";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty";
-import { Input } from "@/components/ui/input";
+import { Input, Select } from "@/components/ui/input";
 import { useRooms } from "@/lib/queries";
-import type { RoomType } from "@/lib/types";
+import type { RoomListItem, RoomType } from "@/lib/types";
 
 const TYPE_OPTIONS: { value: RoomType | ""; label: string }[] = [
   { value: "", label: "전체" },
@@ -21,14 +21,31 @@ const TYPE_OPTIONS: { value: RoomType | ""; label: string }[] = [
   { value: "theme_based", label: "테마 🎯" },
 ];
 
+type SortKey = "date_asc" | "date_desc" | "price_asc" | "price_desc";
+
+function sortRooms(items: RoomListItem[], sort: SortKey): RoomListItem[] {
+  return [...items].sort((a, b) => {
+    if (sort === "date_asc") return new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime();
+    if (sort === "date_desc") return new Date(b.starts_at).getTime() - new Date(a.starts_at).getTime();
+    if (sort === "price_asc") return a.price_amount - b.price_amount;
+    if (sort === "price_desc") return b.price_amount - a.price_amount;
+    return 0;
+  });
+}
+
 export default function RoomsPage() {
   const [region, setRegion] = useState("");
   const [roomType, setRoomType] = useState<RoomType | "">("");
+  const [sort, setSort] = useState<SortKey>("date_asc");
   const filters = {
     ...(region ? { region } : {}),
     ...(roomType ? { room_type: roomType } : {}),
   };
   const { data, isLoading, isError, error } = useRooms(filters);
+  const sortedItems = useMemo(
+    () => sortRooms(data?.items ?? [], sort),
+    [data?.items, sort]
+  );
 
   return (
     <div className="mx-auto w-full max-w-5xl px-5 pt-10 pb-32 sm:px-6 sm:pt-14 sm:pb-24">
@@ -50,17 +67,29 @@ export default function RoomsPage() {
 
       {/* Filters */}
       <div className="mb-6 space-y-3">
-        <div className="relative">
-          <Search
-            className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-(--text-tertiary)"
-            strokeWidth={2}
-          />
-          <Input
-            placeholder="지역을 입력해보세요 (예: 강남, 홍대, 성수)"
-            value={region}
-            onChange={(e) => setRegion(e.target.value)}
-            className="pl-10"
-          />
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search
+              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-(--text-tertiary)"
+              strokeWidth={2}
+            />
+            <Input
+              placeholder="지역을 입력해보세요 (예: 강남, 홍대, 성수)"
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <Select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as SortKey)}
+            className="w-32 shrink-0"
+          >
+            <option value="date_asc">날짜 가까운 순</option>
+            <option value="date_desc">날짜 먼 순</option>
+            <option value="price_asc">낮은 가격 순</option>
+            <option value="price_desc">높은 가격 순</option>
+          </Select>
         </div>
         <div className="-mx-1 flex flex-nowrap gap-2 overflow-x-auto px-1 sm:flex-wrap sm:overflow-visible">
           {TYPE_OPTIONS.map((opt) => (
@@ -109,7 +138,7 @@ export default function RoomsPage() {
         <>
           <p className="mb-3 text-[12px] text-(--text-tertiary)">{data.total}개 룸</p>
           <div className="grid gap-4 sm:grid-cols-2">
-            {data.items.map((r) => (
+            {sortedItems.map((r) => (
               <RoomCard key={r.id} room={r} />
             ))}
           </div>
