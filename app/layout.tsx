@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 import { Providers } from "@/components/providers";
 import "./globals.css";
 
-const BASE_URL = "https://rolling-web.vercel.app";
+const BASE_URL = "https://rollingwithme.app";
 
 export const metadata: Metadata = {
   title: {
@@ -41,6 +41,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
+  },
+  other: {
+    "naver-site-verification": "5cbd3fba689053fc0c00cfc131b590bcdda0713e",
   },
 };
 
